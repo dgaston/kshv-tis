@@ -1,14 +1,19 @@
 #!/usr/bin/env python
 
+import sys
 import argparse
 import gffutils
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('-a', '--annotations', help="Input GFF file of annotations")
-    parser.add_argument('-d', '--db', help="Input GFF file of annotations", default='annotations.db')
+    parser.add_argument('-d', '--db', help="Annotations database", default='annotations.db')
+    parser.add_argument('-g', '--genome', help="Reference Genome to retrieve sequence data from")
     args = parser.parse_args()
 
-    db = gffutils.create_db(args.annotations, dbfn=args.db, force=True, keep_order=True, merge_strategy='merge',
-                            sort_attribute_values=True)
+    sys.stdout.write("Loading database {}\n".format(args.db))
+    db = gffutils.FeatureDB(args.db, keep_order=True)
+
+    sys.stdout.write("Processing 5' UTRs\n")
+    for utr in db.features_of_type('five_prime_UTR', order_by='start'):
+        print utr
