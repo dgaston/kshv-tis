@@ -14,6 +14,9 @@ if __name__ == "__main__":
     sys.stdout.write("Loading database {}\n".format(args.db))
     db = gffutils.FeatureDB(args.db, keep_order=True)
 
-    sys.stdout.write("Processing 5' UTRs\n")
-    for utr in db.features_of_type('five_prime_UTR', order_by='start'):
+    sys.stdout.write("Processing UTRs\n")
+    i = 0
+    for utr in db.features_of_type('UTR', order_by='start'):
+        i += 1
+        print i
         print utr
