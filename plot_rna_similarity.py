@@ -3,6 +3,7 @@
 import sys
 import csv
 import argparse
+import scipy.stats
 import plotly
 import plotly.graph_objs as go
 
@@ -63,7 +64,11 @@ if __name__ == "__main__":
                 mode='markers'
             )
 
-            layout = go.Layout(title="Correlation between samples for: {}".format(comparison),
+            rho, pvalue = scipy.stats.spearmanr(values1, values2)
+
+            layout = go.Layout(title="Correlation between samples for: {}. R2={} (p-value = {})".format(comparison,
+                                                                                                        rho,
+                                                                                                        pvalue),
                                xaxis=dict(
                                    title="{}".format(header[0])
                                ),
