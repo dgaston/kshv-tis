@@ -62,6 +62,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-i', '--input', help='Input file with differential expression results from ballgown '
                                               'stattest', required=True)
+    parser.add_argument('-g', '--gtf', help="GTF file", required=True)
     parser.add_argument('-o', '--output', help='Output file name', required=True)
     parser.add_argument('-t', '--transcripts', help="File that links ballgown internal transcript IDs to transcript "
                                                     "names", required=True)
