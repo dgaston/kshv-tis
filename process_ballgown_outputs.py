@@ -72,14 +72,21 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
+    sys.stdout.write("Parsing Transcripts file to create transcripts dictionary\n")
     transcript_dict = parse_transcripts_reference(args.transcripts)
+
+    sys.stdout.write("Reading file with fold change data\n")
     fold_changes = parse_fold_changes(args.fold_change, transcript_dict)
+
+    sys.stdout.write("Parsing GTF file to construct transcript gene dictionary\n")
     gene_dict = parse_gtf(args.gtf)
 
+    sys.stdout.write("Parsing main ballgown result set\n")
     stats = parse_ballgown_results(args.inputs, transcript_dict, fold_changes, gene_dict)
 
+    sys.stdout.write("Filtering based on FDR QValue and outputting to {}\n".format(args.output))
     with open(args.output, 'w') as outfile:
-        outfile.write("Transcript\tGeneID\tGene Name\tFC\tPValue\tQValue\n")
+        outfile.write("Transcript\tGeneID\tGene Name\tFC\tPValue\tQValue (FDR Adjusted P-value)\n")
         for transcript in stats:
             if stats[transcript]['qval'] <= 0.05:
                 outfile.write("{}\t{}\t{}\t{}\t{}\t{}\n".format(transcript, stats[transcript]['gene_id'],
