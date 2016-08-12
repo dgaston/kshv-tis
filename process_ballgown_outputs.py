@@ -83,7 +83,7 @@ if __name__ == "__main__":
     gene_dict = parse_gtf(args.gtf)
 
     sys.stdout.write("Parsing main ballgown result set\n")
-    stats = parse_ballgown_results(args.inputs, transcript_dict, fold_changes, gene_dict)
+    stats = parse_ballgown_results(args.input, transcript_dict, fold_changes, gene_dict)
 
     sys.stdout.write("Filtering based on FDR QValue and outputting to {}\n".format(args.output))
     with open(args.output, 'w') as outfile:
