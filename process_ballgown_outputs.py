@@ -21,7 +21,7 @@ def parse_transcripts_reference(infile):
 
 
 def parse_gtf(infile):
-    gene_dict = defaultdict(lambda: defaultdict)
+    gene_dict = defaultdict(lambda: defaultdict())
     gtf_file = HTSeq.GFF_Reader(infile, end_included=True)
     for feature in gtf_file:
         if feature.type == "transcript":
