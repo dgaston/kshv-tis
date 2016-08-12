@@ -28,6 +28,8 @@ def parse_gtf(infile):
             gene_dict[feature.attr['transcript_id']]['gene_id'] = feature.attr['gene_id']
             if 'ref_gene_name' in feature.attr:
                 gene_dict[feature.attr['transcript_id']]['gene_name'] = feature.attr['ref_gene_name']
+            else:
+                gene_dict[feature.attr['transcript_id']]['gene_name'] = feature.attr['gene_id']
 
     return gene_dict
 
@@ -42,7 +44,7 @@ def parse_ballgown_results(infile, transcript_dict, fold_changes, gene_dict):
             stats[transcript_dict[row[1]]]['qval'] = row[3]
             stats[transcript_dict[row[1]]]['fc'] = fold_changes[transcript_dict[row[1]]]
             stats[transcript_dict[row[1]]]['gene_id'] = gene_dict[transcript_dict[row[1]]]['gene_id']
-            stats[transcript_dict[row[1]]]['gene_name'] = gene_dict[transcript_dict[row[1]]]['gene_name'] or None
+            stats[transcript_dict[row[1]]]['gene_name'] = gene_dict[transcript_dict[row[1]]]['gene_name']
 
     return stats
 
