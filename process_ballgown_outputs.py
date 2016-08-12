@@ -26,7 +26,8 @@ def parse_gtf(infile):
     for feature in gtf_file:
         if feature.type == "transcript":
             gene_dict[feature.attr['transcript_id']]['gene_id'] = feature.attr['gene_id']
-            gene_dict[feature.attr['transcript_id']]['gene_name'] = feature.attr['ref_gene_name']
+            if 'ref_gene_name' in feature.attr:
+                gene_dict[feature.attr['transcript_id']]['gene_name'] = feature.attr['ref_gene_name']
 
     return gene_dict
 
