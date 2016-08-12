@@ -40,8 +40,8 @@ def parse_ballgown_results(infile, transcript_dict, fold_changes, gene_dict):
         reader = csv.reader(csvfile, delimiter=' ', quotechar='"')
         header = reader.next()
         for row in reader:
-            stats[transcript_dict[row[1]]]['pval'] = row[2]
-            stats[transcript_dict[row[1]]]['qval'] = row[3]
+            stats[transcript_dict[row[1]]]['pval'] = float(row[2])
+            stats[transcript_dict[row[1]]]['qval'] = float(row[3])
             stats[transcript_dict[row[1]]]['fc'] = fold_changes[transcript_dict[row[1]]]
             stats[transcript_dict[row[1]]]['gene_id'] = gene_dict[transcript_dict[row[1]]]['gene_id']
             stats[transcript_dict[row[1]]]['gene_name'] = gene_dict[transcript_dict[row[1]]]['gene_name']
